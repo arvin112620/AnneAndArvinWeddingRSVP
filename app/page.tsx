@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from 'react';
 import { ArrowDown, ArrowUpRight, CalendarDays, Gift, Heart, MapPinned } from 'lucide-react';
 import { Countdown } from '@/components/Countdown';
 import { RSVPForm } from '@/components/RSVPForm';
@@ -10,6 +13,7 @@ type PublicImageProps = React.ImgHTMLAttributes<HTMLImageElement> & { fill?: boo
 function Image({ fill, priority, sizes, style, ...props }: PublicImageProps) {
   return <img {...props} alt={props.alt ?? ''} loading={priority ? 'eager' : 'lazy'} style={fill ? { ...style, position: 'absolute', inset: 0, height: '100%', width: '100%' } : style} />;
 }
+
 const palette = [
   { name: 'Choco Brown', color: '#713611', text: 'text-white' },
   { name: 'Sage Green', color: '#94b98a', text: 'text-ink' },
@@ -18,27 +22,189 @@ const palette = [
 ];
 
 export default function Home() {
-  return <main className="overflow-hidden bg-[#f5efe4] text-ink">
-    <nav className="absolute left-0 right-0 top-0 z-20 mx-auto flex max-w-7xl items-center justify-between px-6 py-5 text-white sm:px-10 lg:px-16"><a href="#top" className="font-display text-xl sm:text-2xl">A <span className="text-[#fffaf1]">&amp;</span> A</a><a href="#rsvp" className="eyebrow border-b border-white/50 pb-1 text-white/80">RSVP</a></nav>
+  useEffect(() => {
+    // Force scroll to top on mount
+    window.scrollTo(0, 0);
 
-    <section id="top" className="relative isolate flex min-h-screen items-end bg-[#292521] text-[#fffaf1]"><Image src={`${folder}/DSC00949.jpg`} alt="Arvin and Anne together" fill priority className="object-cover object-center opacity-60 grayscale-[.08]" /><div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,18,16,.12),rgba(20,18,16,.86))]" /><div className="relative mx-auto grid w-full max-w-7xl gap-10 px-6 pb-9 pt-28 sm:px-10 sm:pb-14 sm:pt-32 lg:grid-cols-[1fr_auto] lg:items-end lg:px-16"><div className="mobile-rise"><p className="eyebrow text-[#fffaf1]">Thursday · November 26 · 2026</p><h1 className="mt-5 max-w-4xl font-display text-[clamp(3.8rem,12vw,9.5rem)] leading-[.72] tracking-[-.04em]">Arvin <span className="text-[#fffaf1]">&amp;</span><br />Anne</h1></div><div className="mobile-rise mobile-rise-delay flex flex-col items-start gap-6 lg:items-end"><div><p className="mb-3 text-xs uppercase tracking-[.18em] text-white/60">Until we say I do</p><Countdown /></div><a href="#welcome" className="flex min-h-11 items-center justify-center bg-[#fffaf1] px-6 text-xs font-bold uppercase tracking-[.12em] text-[#292521] transition hover:bg-[#e6dfcc]">Explore <ArrowDown className="ml-2" size={16} /></a></div></div></section>
+    // Failsafe: Force reveal stuck elements
+    const revealElements = document.querySelectorAll('[data-scroll-reveal]');
+    revealElements.forEach((el) => {
+      if (el instanceof HTMLElement) {
+        el.style.visibility = 'visible';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      }
+    });
+  }, []);
 
-    <section id="welcome" data-scroll-reveal className="mx-auto max-w-4xl px-6 py-24 text-center sm:px-10 lg:py-32"><p className="eyebrow text-[#58752a]">Welcome to our wedding website</p><h2 className="mt-5 font-display text-6xl leading-[.82] text-[#713611] sm:text-8xl">We&apos;re so glad<br /><em>you&apos;re here.</em></h2><p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-[#713611]/70 sm:text-lg">Thank you for being part of our love story as we step into this beautiful new chapter together. We are so grateful to celebrate this day with you.</p></section>
+  return (
+    <main className="overflow-hidden bg-[#f5efe4] text-ink">
+      <nav className="absolute left-0 right-0 top-0 z-20 mx-auto flex max-w-7xl items-center justify-between px-6 py-5 text-white sm:px-10 lg:px-16">
+        <a href="#top" className="font-display text-xl sm:text-2xl">A <span className="text-[#fffaf1]">&amp;</span> A</a>
+        <a href="#rsvp" className="eyebrow border-b border-white/50 pb-1 text-white/80">RSVP</a>
+      </nav>
 
-    <section data-scroll-reveal className="bg-[#713611] px-6 py-20 text-[#fffaf1] sm:px-10 lg:px-16 lg:py-28"><div className="mx-auto max-w-7xl"><div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end"><div><p className="eyebrow text-white/65">A little film for you</p><h2 className="mt-5 font-display text-6xl leading-[.82]">Before the<br /><em>big day.</em></h2></div><p className="max-w-xs text-sm leading-6 text-white/65">Press play and spend a few quiet minutes with us.</p></div><div className="mt-10 overflow-hidden bg-black shadow-2xl"><iframe className="aspect-video w-full border-0" src="https://www.youtube.com/embed/eFRyqTQXHbY" title="Arvin and Anne wedding film" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /></div></div></section>
+      <section id="top" className="relative isolate flex min-h-screen items-end bg-[#292521] text-[#fffaf1]">
+        <Image src={`${folder}/DSC00949.jpg`} alt="Arvin and Anne together" fill priority className="object-cover object-center opacity-60 grayscale-[.08]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(20,18,16,.12),rgba(20,18,16,.86))]" />
+        <div className="relative mx-auto grid w-full max-w-7xl gap-10 px-6 pb-9 pt-28 sm:px-10 sm:pb-14 sm:pt-32 lg:grid-cols-[1fr_auto] lg:items-end lg:px-16">
+          <div className="mobile-rise">
+            <p className="eyebrow text-[#fffaf1]">Thursday · November 26 · 2026</p>
+            <h1 className="mt-5 max-w-4xl font-display text-[clamp(3.8rem,12vw,9.5rem)] leading-[.72] tracking-[-.04em]">Arvin <span className="text-[#fffaf1]">&amp;</span><br />Anne</h1>
+          </div>
+          <div className="mobile-rise mobile-rise-delay flex flex-col items-start gap-6 lg:items-end">
+            <div>
+              <p className="mb-3 text-xs uppercase tracking-[.18em] text-white/60">Until we say I do</p>
+              <Countdown />
+            </div>
+            <a href="#welcome" className="flex min-h-11 items-center justify-center bg-[#fffaf1] px-6 text-xs font-bold uppercase tracking-[.12em] text-[#292521] transition hover:bg-[#e6dfcc]">Explore <ArrowDown className="ml-2" size={16} /></a>
+          </div>
+        </div>
+      </section>
 
-    <section data-scroll-reveal className="bg-[#fffaf1]"><div className="mx-auto max-w-7xl px-6 py-20 sm:px-10 lg:px-16 lg:py-28"><div className="grid gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-24"><div><p className="eyebrow text-[#58752a]">When &amp; where</p><h2 className="mt-5 font-display text-6xl leading-[.82] text-[#713611]">A day we<br /><em>will cherish.</em></h2></div><div className="grid gap-10 border-t border-[#713611]/20 pt-7 sm:grid-cols-2"><div><CalendarDays className="text-[#58752a]" size={22} /><p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[#713611]/55">When</p><p className="mt-2 font-display text-3xl text-[#713611]">November 26, 2026</p><p className="mt-1 text-sm text-[#713611]/65">Thursday</p></div><div><MapPinned className="text-[#58752a]" size={22} /><p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[#713611]/55">Where</p><p className="mt-2 font-display text-3xl text-[#713611]">Two beautiful places</p><p className="mt-1 text-sm leading-6 text-[#713611]/65">Caleruega Church<br />Savanna Farm</p></div></div></div></div></section>
+      <section id="welcome" data-scroll-reveal className="mx-auto max-w-4xl px-6 py-24 text-center sm:px-10 lg:py-32">
+        <p className="eyebrow text-[#58752a]">Welcome to our wedding website</p>
+        <h2 className="mt-5 font-display text-6xl leading-[.82] text-[#713611] sm:text-8xl">We&apos;re so glad<br /><em>you&apos;re here.</em></h2>
+        <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-[#713611]/70 sm:text-lg">Thank you for being part of our love story as we step into this beautiful new chapter together. We are so grateful to celebrate this day with you.</p>
+      </section>
 
-    <section data-scroll-reveal className="bg-[#94b98a] text-[#713611]"><div className="mx-auto max-w-7xl px-6 py-20 sm:px-10 lg:px-16 lg:py-28"><div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-24"><div><p className="eyebrow">The venue</p><h2 className="mt-5 font-display text-6xl leading-[.82]">Thank you<br /><em>for coming.</em></h2><p className="mt-7 max-w-md text-sm leading-7 text-[#713611]/75">To our guests traveling from out of town, thank you for making the journey to celebrate with us. We know a trip to Tagaytay takes extra time and planning, and we are truly grateful for your effort, love, and presence on our special day.</p><div className="mt-8 space-y-3"><a href="https://www.google.com/maps/dir/Tagaytay+City+Proper/Caleruega+Church" target="_blank" rel="noreferrer" className="flex items-center justify-between border-b border-[#713611]/25 pb-3 text-sm font-bold">Tagaytay City Proper → Caleruega Church <ArrowUpRight size={16} /></a><a href="https://www.google.com/maps/dir/Caleruega+Church/Savanna+Farm,+007+Barangay,+Alfonso,+Cavite" target="_blank" rel="noreferrer" className="flex items-center justify-between border-b border-[#713611]/25 pb-3 text-sm font-bold">Caleruega Church → Savanna Farm <ArrowUpRight size={16} /></a></div></div><div className="grid gap-4 sm:grid-cols-2"><article className="bg-[#fffaf1] p-7"><p className="eyebrow text-[#58752a]">Church</p><h3 className="mt-5 font-display text-4xl">Caleruega Church</h3><p className="mt-3 text-sm leading-6 text-[#713611]/65">Chapel of Transfiguration<br />Nasugbu, Batangas</p><a href="https://www.google.com/maps/search/?api=1&query=Caleruega+Church" target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.12em]">Open map <ArrowUpRight size={14} /></a></article><article className="flex flex-col bg-[#fffaf1] p-7"><Image src="/savanna_farm_logo.png" alt="Savanna Farm logo" width={190} height={100} className="h-auto w-40 object-contain object-left" /><p className="eyebrow mt-5 text-[#58752a]">Reception</p><h3 className="mt-3 font-display text-4xl">Savanna Farm</h3><p className="mt-3 text-sm leading-6 text-[#713611]/65">007 Barangay<br />Alfonso, Cavite</p><a href="https://www.google.com/maps/search/?api=1&query=Savanna+Farm,+007+Barangay,+Alfonso,+Cavite" target="_blank" rel="noreferrer" className="mt-auto inline-flex items-center gap-2 pt-8 text-xs font-bold uppercase tracking-[.12em]">Open map <ArrowUpRight size={14} /></a></article></div></div><div className="mt-12 min-h-[340px] overflow-hidden border-8 border-[#fff3d4]/70 bg-[#e6dfcc]"><iframe title="Map to Caleruega Church and Savanna Farm" src="https://www.google.com/maps?q=Caleruega%20Church%2C%20Nasugbu%2C%20Batangas&output=embed" className="h-full min-h-[324px] w-full border-0 grayscale-[.2]" loading="lazy" referrerPolicy="no-referrer-when-downgrade" /></div></div></section>
+      <section data-scroll-reveal className="bg-[#713611] px-6 py-20 text-[#fffaf1] sm:px-10 lg:px-16 lg:py-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+            <div>
+              <p className="eyebrow text-white/65">A little film for you</p>
+              <h2 className="mt-5 font-display text-6xl leading-[.82]">Before the<br /><em>big day.</em></h2>
+            </div>
+            <p className="max-w-xs text-sm leading-6 text-white/65">Press play and spend a few quiet minutes with us.</p>
+          </div>
+          <div className="mt-10 overflow-hidden bg-black shadow-2xl">
+            <iframe className="aspect-video w-full border-0" src="https://www.youtube.com/embed/eFRyqTQXHbY" title="Arvin and Anne wedding film" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
+          </div>
+        </div>
+      </section>
 
-    <section data-scroll-reveal className="mx-auto max-w-5xl px-6 py-20 sm:px-10 lg:py-28"><div className="border-b border-[#713611]/20 pb-8 text-center"><p className="eyebrow text-[#58752a]">Dress code</p><h2 className="mt-5 font-display text-6xl leading-[.82] text-[#713611]">Semi-formal<br /><em>attire.</em></h2><p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-[#713611]/70">With love and appreciation, we kindly ask guests to avoid wearing white, ivory, or any shades close to white, as well as patterned outfits, as these are reserved for the bride and the wedding theme. We encourage elegant, solid-colored attire in soft or rich tones that complement the romance and unity of our celebration.</p></div><div className="mt-10"><p className="text-center text-xs font-bold uppercase tracking-[.14em] text-[#713611]/55">Color palette</p><div className="mt-4 grid grid-cols-2 overflow-hidden border border-[#713611]/10 sm:grid-cols-4">{palette.map((swatch) => <div key={swatch.name} style={{ backgroundColor: swatch.color }} className={`flex min-h-32 items-end p-4 text-sm font-bold sm:min-h-44 ${swatch.text}`}>{swatch.name}</div>)}</div></div></section>
+      <section data-scroll-reveal className="bg-[#fffaf1]">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
+          <div className="grid gap-12 lg:grid-cols-[.75fr_1.25fr] lg:gap-24">
+            <div>
+              <p className="eyebrow text-[#58752a]">When &amp; where</p>
+              <h2 className="mt-5 font-display text-6xl leading-[.82] text-[#713611]">A day we<br /><em>will cherish.</em></h2>
+            </div>
+            <div className="grid gap-10 border-t border-[#713611]/20 pt-7 sm:grid-cols-2">
+              <div>
+                <CalendarDays className="text-[#58752a]" size={22} />
+                <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[#713611]/55">When</p>
+                <p className="mt-2 font-display text-3xl text-[#713611]">November 26, 2026</p>
+                <p className="mt-1 text-sm text-[#713611]/65">Thursday</p>
+              </div>
+              <div>
+                <MapPinned className="text-[#58752a]" size={22} />
+                <p className="mt-5 text-xs font-bold uppercase tracking-[.14em] text-[#713611]/55">Where</p>
+                <p className="mt-2 font-display text-3xl text-[#713611]">Two beautiful places</p>
+                <p className="mt-1 text-sm leading-6 text-[#713611]/65">Caleruega Church<br />Savanna Farm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <section data-scroll-reveal className="bg-[#fffaf1]"><div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 sm:px-10 lg:grid-cols-[1fr_1.2fr] lg:gap-24 lg:px-16 lg:py-24"><div><Gift className="text-[#58752a]" size={24} /><p className="eyebrow mt-6 text-[#58752a]">Gift guide</p><h2 className="mt-4 font-display text-6xl leading-[.82] text-[#713611]">Presence<br /><em>over presents.</em></h2></div><div className="flex flex-col items-start justify-center border-l-2 border-[#94b98a] pl-7"><p className="max-w-lg text-lg leading-8 text-[#713611]/75">Your presence at our wedding is the greatest gift of all. However, if you wish to bless us further, a monetary gift would be sincerely appreciated.</p><a href="/gifts" className="mt-7 inline-flex min-h-12 items-center bg-[#713611] px-6 text-xs font-bold uppercase tracking-[.12em] text-[#fffaf1] transition hover:bg-[#58752a]">View our gift details <ArrowUpRight className="ml-2" size={15} /></a></div></div></section>
+      <section data-scroll-reveal className="bg-[#94b98a] text-[#713611]">
+        <div className="mx-auto max-w-7xl px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
+          <div className="grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-24">
+            <div>
+              <p className="eyebrow">The venue</p>
+              <h2 className="mt-5 font-display text-6xl leading-[.82]">Thank you<br /><em>for coming.</em></h2>
+              <p className="mt-7 max-w-md text-sm leading-7 text-[#713611]/75">To our guests traveling from out of town, thank you for making the journey to celebrate with us. We know a trip to Tagaytay takes extra time and planning, and we are truly grateful for your effort, love, and presence on our special day.</p>
+              <div className="mt-8 space-y-3">
+                <a href="https://www.google.com/maps/dir/Tagaytay+City+Proper/Caleruega+Church" target="_blank" rel="noreferrer" className="flex items-center justify-between border-b border-[#713611]/25 pb-3 text-sm font-bold">Tagaytay City Proper → Caleruega Church <ArrowUpRight size={16} /></a>
+                <a href="https://www.google.com/maps/dir/Caleruega+Church/Savanna+Farm,+007+Barangay,+Alfonso,+Cavite" target="_blank" rel="noreferrer" className="flex items-center justify-between border-b border-[#713611]/25 pb-3 text-sm font-bold">Caleruega Church → Savanna Farm <ArrowUpRight size={16} /></a>
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <article className="bg-[#fffaf1] p-7">
+                <p className="eyebrow text-[#58752a]">Church</p>
+                <h3 className="mt-5 font-display text-4xl">Caleruega Church</h3>
+                <p className="mt-3 text-sm leading-6 text-[#713611]/65">Chapel of Transfiguration<br />Nasugbu, Batangas</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Caleruega+Church" target="_blank" rel="noreferrer" className="mt-8 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.12em]">Open map <ArrowUpRight size={14} /></a>
+              </article>
+              <article className="flex flex-col bg-[#fffaf1] p-7">
+                <Image src="/savanna_farm_logo.png" alt="Savanna Farm logo" width={190} height={100} className="h-auto w-40 object-contain object-left" />
+                <p className="eyebrow mt-5 text-[#58752a]">Reception</p>
+                <h3 className="mt-3 font-display text-4xl">Savanna Farm</h3>
+                <p className="mt-3 text-sm leading-6 text-[#713611]/65">007 Barangay<br />Alfonso, Cavite</p>
+                <a href="https://www.google.com/maps/search/?api=1&query=Savanna+Farm,+007+Barangay,+Alfonso,+Cavite" target="_blank" rel="noreferrer" className="mt-auto inline-flex items-center gap-2 pt-8 text-xs font-bold uppercase tracking-[.12em]">Open map <ArrowUpRight size={14} /></a>
+              </article>
+            </div>
+          </div>
+          <div className="mt-12 min-h-[340px] overflow-hidden border-8 border-[#fff3d4]/70 bg-[#e6dfcc]">
+            <iframe title="Map to Caleruega Church and Savanna Farm" src="https://www.google.com/maps?q=Caleruega%20Church%2C%20Nasugbu%2C%20Batangas&output=embed" className="h-full min-h-[324px] w-full border-0 grayscale-[.2]" loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          </div>
+        </div>
+      </section>
 
-    <section data-scroll-reveal id="rsvp" className="bg-[#713611] text-[#fffaf1]"><div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-24 lg:px-16 lg:py-28"><div><Heart className="text-white" size={24} /><p className="eyebrow mt-6 text-white/70">RSVP via Google</p><h2 className="mt-5 font-display text-7xl leading-[.78]">Will we<br /><em>see you there?</em></h2><p className="mt-8 max-w-sm text-sm leading-7 text-white/65">Please sign in with Google so we can keep our guest list accurate. We would love to celebrate with you.</p></div><div className="mobile-rise mobile-rise-delay bg-[#fffaf1] p-6 text-ink sm:p-10"><RSVPForm /></div></div></section>
+      <section data-scroll-reveal className="mx-auto max-w-5xl px-6 py-20 sm:px-10 lg:py-28">
+        <div className="border-b border-[#713611]/20 pb-8 text-center">
+          <p className="eyebrow text-[#58752a]">Dress code</p>
+          <h2 className="mt-5 font-display text-6xl leading-[.82] text-[#713611]">Semi-formal<br /><em>attire.</em></h2>
+          <p className="mx-auto mt-8 max-w-2xl text-base leading-8 text-[#713611]/70">With love and appreciation, we kindly ask guests to avoid wearing white, ivory, or any shades close to white, as well as patterned outfits, as these are reserved for the bride and the wedding theme. We encourage elegant, solid-colored attire in soft or rich tones that complement the romance and unity of our celebration.</p>
+        </div>
+        <div className="mt-10">
+          <p className="text-center text-xs font-bold uppercase tracking-[.14em] text-[#713611]/55">Color palette</p>
+          <div className="mt-4 grid grid-cols-2 overflow-hidden border border-[#713611]/10 sm:grid-cols-4">
+            {palette.map((swatch) => <div key={swatch.name} style={{ backgroundColor: swatch.color }} className={`flex min-h-32 items-end p-4 text-sm font-bold sm:min-h-44 ${swatch.text}`}>{swatch.name}</div>)}
+          </div>
+        </div>
+      </section>
 
-    <section data-scroll-reveal className="mx-auto max-w-7xl px-6 py-20 sm:px-10 lg:px-16 lg:py-28"><div className="flex items-end justify-between border-b border-[#713611]/20 pb-6"><div><p className="eyebrow text-[#58752a]">In the meantime</p><h2 className="mt-4 font-display text-6xl leading-[.82] text-[#713611]">Our favorite<br /><em>little moments.</em></h2></div></div><div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">{photos.map((photo, index) => <div key={photo} className="relative aspect-square overflow-hidden bg-[#e6dfcc]"><Image src={`${folder}/${photo}`} alt={`Arvin and Anne, memory ${index + 1}`} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className="object-cover transition duration-700 hover:scale-105" /></div>)}</div></section>
+      <section data-scroll-reveal className="bg-[#fffaf1]">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 sm:px-10 lg:grid-cols-[1fr_1.2fr] lg:gap-24 lg:px-16 lg:py-24">
+          <div>
+            <Gift className="text-[#58752a]" size={24} />
+            <p className="eyebrow mt-6 text-[#58752a]">Gift guide</p>
+            <h2 className="mt-4 font-display text-6xl leading-[.82] text-[#713611]">Presence<br /><em>over presents.</em></h2>
+          </div>
+          <div className="flex flex-col items-start justify-center border-l-2 border-[#94b98a] pl-7">
+            <p className="max-w-lg text-lg leading-8 text-[#713611]/75">Your presence at our wedding is the greatest gift of all. However, if you wish to bless us further, a monetary gift would be sincerely appreciated.</p>
+            <a href="/gifts" className="mt-7 inline-flex min-h-12 items-center bg-[#713611] px-6 text-xs font-bold uppercase tracking-[.12em] text-[#fffaf1] transition hover:bg-[#58752a]">View our gift details <ArrowUpRight className="ml-2" size={15} /></a>
+          </div>
+        </div>
+      </section>
 
-    <footer className="bg-[#fff3d4] px-6 py-16 text-[#713611] sm:px-10 lg:px-16"><div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 border-t border-[#713611]/20 pt-8 text-center sm:flex-row sm:text-left"><div><p className="eyebrow text-[#58752a]">Until forever</p><p className="mt-3 font-display text-4xl">With love, Arvin <span className="text-[#713611]">&amp;</span> Anne</p></div><p className="text-xs uppercase tracking-[.18em] text-[#713611]/60">November 26 · 2026</p></div></footer>
-  </main>;
+      <section data-scroll-reveal id="rsvp" className="bg-[#713611] text-[#fffaf1]">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 py-20 sm:px-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-24 lg:px-16 lg:py-28">
+          <div>
+            <Heart className="text-white" size={24} />
+            <p className="eyebrow mt-6 text-white/70">RSVP via Google</p>
+            <h2 className="mt-5 font-display text-7xl leading-[.78]">Will we<br /><em>see you there?</em></h2>
+            <p className="mt-8 max-w-sm text-sm leading-7 text-white/65">Please sign in with Google so we can keep our guest list accurate. We would love to celebrate with you.</p>
+          </div>
+          <div className="mobile-rise mobile-rise-delay bg-[#fffaf1] p-6 text-ink sm:p-10">
+            <RSVPForm />
+          </div>
+        </div>
+      </section>
+
+      <section data-scroll-reveal className="mx-auto max-w-7xl px-6 py-20 sm:px-10 lg:px-16 lg:py-28">
+        <div className="flex items-end justify-between border-b border-[#713611]/20 pb-6">
+          <div>
+            <p className="eyebrow text-[#58752a]">In the meantime</p>
+            <h2 className="mt-4 font-display text-6xl leading-[.82] text-[#713611]">Our favorite<br /><em>little moments.</em></h2>
+          </div>
+        </div>
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {photos.map((photo, index) => <div key={photo} className="relative aspect-square overflow-hidden bg-[#e6dfcc]"><Image src={`${folder}/${photo}`} alt={`Arvin and Anne, memory ${index + 1}`} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" className="object-cover transition duration-700 hover:scale-105" /></div>)}
+        </div>
+      </section>
+
+      <footer className="bg-[#fff3d4] px-6 py-16 text-[#713611] sm:px-10 lg:px-16">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 border-t border-[#713611]/20 pt-8 text-center sm:flex-row sm:text-left">
+          <div>
+            <p className="eyebrow text-[#58752a]">Until forever</p>
+            <p className="mt-3 font-display text-4xl">With love, Arvin <span className="text-[#713611]">&amp;</span> Anne</p>
+          </div>
+          <p className="text-xs uppercase tracking-[.18em] text-[#713611]/60">November 26 · 2026</p>
+        </div>
+      </footer>
+    </main>
+  );
 }

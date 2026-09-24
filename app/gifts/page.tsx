@@ -1,8 +1,51 @@
 import Link from 'next/link';
 
 export default function GiftsPage() {
-  return <main className="min-h-screen bg-[#f5efe4] text-[#713611]">
-    <header className="border-b border-[#713611]/15 bg-[#fffaf1] px-6 py-5 sm:px-10 lg:px-16"><div className="mx-auto flex max-w-5xl items-center justify-between"><Link href="/" className="font-display text-2xl">A <span className="text-[#58752a]">&amp;</span> A</Link><Link href="/" className="text-xs font-bold uppercase tracking-[.14em] text-[#713611]/65">Back to invitation</Link></div></header>
-    <div className="mx-auto max-w-4xl px-6 py-16 sm:px-10 lg:py-24"><div className="text-center"><p className="eyebrow text-[#58752a]">Our gift details</p><h1 className="mt-5 font-display text-6xl leading-[.82] sm:text-8xl">A little gift<br /><em>from the heart.</em></h1><p className="mx-auto mt-7 max-w-xl text-sm leading-7 text-[#713611]/70">Your presence is already the greatest gift. If you would like to bless us further, you may find our requested gift details below.</p></div><div className="mt-14 space-y-10"><figure className="overflow-hidden bg-[#fffaf1] p-3 shadow-sm"><img src="/prenup-photos/DSC00732.jpg" alt="Arvin and Anne" className="mx-auto block max-h-[70vh] w-full object-contain" /></figure><figure className="bg-[#fffaf1] p-6 text-center shadow-sm sm:p-10"><p className="eyebrow text-[#bf4e28]">Our requested gift</p><h2 className="mt-4 font-display text-4xl">Monetary gift</h2><p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#713611]/65">For those who wish to bless us, you may use the account details shown below.</p><div className="mt-8 grid gap-8 sm:grid-cols-2"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-[#713611]/60">Arvin · BPI</p><img src="/arvinBPI.jpg" alt="BPI account QR code for Arvin" className="mx-auto mt-4 max-h-[420px] w-full object-contain" /></div><div><p className="text-xs font-bold uppercase tracking-[.14em] text-[#713611]/60">Ann · GCash</p><img src="/AnnGcash.jpg" alt="GCash QR code for Ann" className="mx-auto mt-4 max-h-[420px] w-full object-contain" /></div></div></figure></div></div>
-  </main>;
+  return (
+    <main className="min-h-screen bg-[#f5efe4] text-[#713611]">
+      <header className="border-b border-[#713611]/15 bg-[#fffaf1] px-6 py-5 sm:px-10 lg:px-16">
+        <div className="mx-auto flex max-w-5xl items-center justify-between">
+          <Link href="/" className="font-display text-2xl">
+            A <span className="text-[#58752a]">&amp;</span> A
+          </Link>
+          <Link href="/" className="text-xs font-bold uppercase tracking-[.14em] text-[#713611]/65">
+            Back to invitation
+          </Link>
+        </div>
+      </header>
+      <div className="mx-auto max-w-4xl px-6 py-16 sm:px-10 lg:py-24">
+        <div className="text-center">
+          <p className="eyebrow text-[#58752a]">Our gift details</p>
+          <h1 className="mt-5 font-display text-6xl leading-[.82] sm:text-8xl">
+            A little gift<br /><em>from the heart.</em>
+          </h1>
+          <p className="mx-auto mt-7 max-w-xl text-sm leading-7 text-[#713611]/70">
+            Your presence is already the greatest gift. If you would like to bless us further, you may find our requested gift details below.
+          </p>
+        </div>
+        <div className="mt-14 space-y-10">
+          <figure className="overflow-hidden bg-[#fffaf1] p-3 shadow-sm">
+            <img src="/prenup-photos/DSC00732.jpg" alt="Arvin and Anne" className="mx-auto block max-h-[70vh] w-full object-contain" />
+          </figure>
+          <figure className="bg-[#fffaf1] p-6 text-center shadow-sm sm:p-10">
+            <p className="eyebrow text-[#bf4e28]">Our requested gift</p>
+            <h2 className="mt-4 font-display text-4xl">Monetary gift</h2>
+            <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#713611]/65">
+              For those who wish to bless us, you may use the account details shown below.
+            </p>
+            <div className="mt-8 grid gap-8 sm:grid-cols-2">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[.14em] text-[#713611]/60">Arvin · BPI</p>
+                <img src="/arvinBPI.jpg" alt="BPI account QR code for Arvin" className="mx-auto mt-4 max-h-[420px] w-full object-contain" />
+              </div>
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[.14em] text-[#713611]/60">Ann · GCash</p>
+                <img src="/AnnGcash.jpg" alt="GCash QR code for Ann" className="mx-auto mt-4 max-h-[420px] w-full object-contain" />
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </main>
+  );
 }
